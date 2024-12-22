@@ -5,4 +5,4 @@ RUN mvn clean package -DskipTests
 FROM openjdk:21-jdk-slim
 COPY --from=build /target/CarManagementSystem-0.0.1-SNAPSHOT.jar CarManagementSystem.jar
 EXPOSE 5050
-ENTRYPOINT [ "java","-jar","demo.jar" ]
+ENTRYPOINT [ "java","-jar","CarManagementSystem.jar" ]
