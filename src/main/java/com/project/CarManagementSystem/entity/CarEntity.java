@@ -15,6 +15,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.util.Date;
 
 @Entity
@@ -32,7 +33,7 @@ public class CarEntity {
     private String model;
     private Long price;
     private String color;
-    private int year;
+    private Year year;
     private FUEL_TYPE fuelType;
     @CreatedDate
     @Column(nullable = false,updatable = false)

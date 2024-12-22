@@ -57,7 +57,16 @@ public class CarServiceImpl implements CarService {
     }
     public List<CarDto> search(String keyword,String sortBy,int pageNumber){
         Pageable pageable= PageRequest.of(pageNumber,PAGE_SIZE,Sort.by(sortBy));
-        List<CarEntity> carEntities = carRepository.findByCarNameLike(keyword,pageable);
+        List<CarEntity> carEntities = new ArrayList<>();
+        if(keyword.isBlank()){
+            System.out.println("Hello world");
+            carEntities.addAll(carRepository.findAll(pageable).getContent());
+        }
+        else{
+         carEntities.addAll(carRepository.searchCar(keyword,pageable));
+
+        }
+
         return carEntities.stream().map(carEntity ->
                 modelMapper.map(carEntity,CarDto.class)
         ).toList();
@@ -87,6 +96,7 @@ public class CarServiceImpl implements CarService {
                 .price(carDto.getPrice())
                 .color(carDto.getColor())
                 .fuelType(carDto.getFuelType())
+                .year(carDto.getYear())
                 .build();
             return modelMapper.map(carRepository.save(carEntity), CarDto.class);
         }
